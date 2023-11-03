@@ -24,12 +24,8 @@ public class AssignmentRepositoryAdapter implements AssignmentRepository {
 
     @Override
     public Assignment add(Assignment assignment) {
-        var a = new AssignmentEntity();
-        a.setDescription("yes");
-        a.setName("noooo");
-        a.setStatus(Status.PENDING);
-        assignmentJpaRepository.save(a);
-        return null;
+        var assignmentEntity =  assignmentJpaRepository.save(AssignmentEntity.fromDomainObject(assignment));
+        return assignmentEntity.toDomainObject();
     }
 
     @Override

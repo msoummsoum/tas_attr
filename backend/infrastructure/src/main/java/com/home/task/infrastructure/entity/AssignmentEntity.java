@@ -1,51 +1,38 @@
 package com.home.task.infrastructure.entity;
 
+import com.home.task.domain.object.Assignment;
 import com.home.task.domain.object.Status;
 import jakarta.persistence.*;
 
 
 @Entity
-@Table(name="assignment")
+@Table(name = "assignment")
 public class AssignmentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
-    @Column(name="status")
+    @Column(name = "status")
     private Status status;
 
-    public Long getId() {
-        return id;
+    public AssignmentEntity() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
+    public AssignmentEntity(Long id, String name, String description, Status status) {
         this.id = id;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
+        this.status = status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public static AssignmentEntity fromDomainObject(Assignment assignment) {
+        return new AssignmentEntity(assignment.id(), assignment.name(), assignment.description(), assignment.status());
+    }
+
+    public Assignment toDomainObject() {
+        return new Assignment(this.id, this.name, this.description, this.status);
     }
 }
