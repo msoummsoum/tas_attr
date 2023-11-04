@@ -21,7 +21,7 @@ public class AssignmentRepositoryAdapterTest {
     private AssignmentRepositoryAdapter assignmentRepositoryAdapter;
 
     @Test
-    public void test() {
+    public void should_save_assignment() {
         //Given
         Assignment assignment = new Assignment(null, "nom", "description", Status.PENDING);
 
