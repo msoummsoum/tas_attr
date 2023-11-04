@@ -23,13 +23,16 @@ public class AssignmentRepositoryAdapterTest {
     @Test
     public void test() {
         //Given
-        Assignment assignment = new Assignment(1L, "nom", "description", Status.PENDING);
+        Assignment assignment = new Assignment(null, "nom", "description", Status.PENDING);
 
         //When
         Assignment assignmentAdded = assignmentRepositoryAdapter.add(assignment);
 
         //Then
-        Assertions.assertEquals("description", assignmentAdded.description());
+        Assertions.assertNotNull(assignmentAdded.id());
+        Assertions.assertEquals(assignment.name(), assignmentAdded.name());
+        Assertions.assertEquals(assignment.description(), assignmentAdded.description());
+        Assertions.assertEquals(assignment.status(), assignmentAdded.status());
     }
 
     @Configuration

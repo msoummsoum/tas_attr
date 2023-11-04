@@ -6,13 +6,11 @@ import com.home.task.domain.port.AssignmentRepository;
 import com.home.task.infrastructure.entity.AssignmentEntity;
 import com.home.task.infrastructure.repository.AssignmentJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@Primary
 public class AssignmentRepositoryAdapter implements AssignmentRepository {
 
     private AssignmentJpaRepository assignmentJpaRepository;
