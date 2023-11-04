@@ -33,7 +33,7 @@ public class AssignmentRepositoryAdapterTest {
     }
 
     @Configuration
-    static class DaoTestConfig {
+    static class RepositoryTestConfig {
         @Bean
         public AssignmentRepositoryAdapter assignmentRepositoryAdapter(AssignmentJpaRepository assignmentJpaRepository) {
             return new AssignmentRepositoryAdapter(assignmentJpaRepository);
