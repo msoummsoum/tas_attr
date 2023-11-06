@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.List;
+
 @DataJpaTest
 @EnableJpaRepositories(basePackages = {"com.home.task.infrastructure.repository"})
 @EntityScan("com.home.task.infrastructure.entity")
@@ -33,6 +35,40 @@ public class AssignmentRepositoryAdapterTest {
         Assertions.assertEquals(assignment.name(), assignmentAdded.name());
         Assertions.assertEquals(assignment.description(), assignmentAdded.description());
         Assertions.assertEquals(assignment.status(), assignmentAdded.status());
+    }
+
+    @Test
+    public void should_get_all_assignments_having_given_status() {
+        //Given
+        Assignment assignment1 = new Assignment(null, "nom1", "description1", Status.PENDING);
+        Assignment assignment2 = new Assignment(null, "nom2", "description2", Status.COMPLETED);
+        Assignment assignment3 = new Assignment(null, "nom3", "description3", Status.PENDING);
+        assignmentRepositoryAdapter.add(assignment1);
+        assignmentRepositoryAdapter.add(assignment2);
+        assignmentRepositoryAdapter.add(assignment3);
+
+        //When
+        List<Assignment> assignmentList = assignmentRepositoryAdapter.getAllByStatus(Status.PENDING);
+
+        //Given
+        Assertions.assertEquals(2, assignmentList.size());
+    }
+
+    @Test
+    public void should_get_empty_list_having_given_status() {
+        //Given
+        Assignment assignment1 = new Assignment(null, "nom1", "description1", Status.PENDING);
+        Assignment assignment2 = new Assignment(null, "nom2", "description2", Status.COMPLETED);
+        Assignment assignment3 = new Assignment(null, "nom3", "description3", Status.PENDING);
+        assignmentRepositoryAdapter.add(assignment1);
+        assignmentRepositoryAdapter.add(assignment2);
+        assignmentRepositoryAdapter.add(assignment3);
+
+        //When
+        List<Assignment> assignmentList = assignmentRepositoryAdapter.getAllByStatus(Status.ABANDONED);
+
+        //Given
+        Assertions.assertEquals(0, assignmentList.size());
     }
 
     @Configuration

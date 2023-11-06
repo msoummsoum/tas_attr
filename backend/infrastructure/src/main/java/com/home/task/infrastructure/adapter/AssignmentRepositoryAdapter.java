@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Component
 public class AssignmentRepositoryAdapter implements AssignmentRepository {
 
@@ -22,12 +24,12 @@ public class AssignmentRepositoryAdapter implements AssignmentRepository {
 
     @Override
     public Assignment add(Assignment assignment) {
-        var assignmentEntity =  assignmentJpaRepository.save(AssignmentEntity.fromDomainObject(assignment));
+        var assignmentEntity = assignmentJpaRepository.save(AssignmentEntity.fromDomainObject(assignment));
         return assignmentEntity.toDomainObject();
     }
 
     @Override
     public List<Assignment> getAllByStatus(Status status) {
-        return null;
+        return assignmentJpaRepository.findByStatus(status).stream().map(AssignmentEntity::toDomainObject).collect(toList());
     }
 }
