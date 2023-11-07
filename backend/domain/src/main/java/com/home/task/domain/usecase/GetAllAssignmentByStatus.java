@@ -16,7 +16,7 @@ public class GetAllAssignmentByStatus {
         this.assignmentRepository = assignmentRepository;
     }
 
-    List<Assignment> execute(Status status) {
+    public List<Assignment> execute(Status status) {
         return this.assignmentRepository.getAllByStatus(status);
     }
 }
